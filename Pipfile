@@ -1,0 +1,32 @@
+[[source]]
+
+verify_ssl = true
+url = "https://pypi.python.org/simple"
+name = "pypi"
+
+
+[packages]
+
+pandas = "*"
+jupyter = "*"
+pypng = "*"
+carto = "*"
+geopandas = "*"
+scipy = "*"
+pillow = "*"
+scikit-image = "*"
+pydal = "*"
+cartoframes = "*"
+shapely = "*"
+gbdxtools = "*"
+sklearn = "*"
+seaborn = "*"
+
+
+[dev-packages]
+
+
+
+[requires]
+
+python_version = "3.5"

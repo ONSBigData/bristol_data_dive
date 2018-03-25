@@ -1,0 +1,924 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Clustering with satellite images}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Applying clustering to identify land use in Satellite
+imagery}\label{applying-clustering-to-identify-land-use-in-satellite-imagery}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+          
+          \PY{c+c1}{\PYZsh{}data manipulation}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          
+          
+          \PY{c+c1}{\PYZsh{}reading and displying images}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          
+          \PY{c+c1}{\PYZsh{}the K\PYZhy{}means implementation}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+          
+          \PY{c+c1}{\PYZsh{}guassaian smoothing}
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{ndimage} \PY{k}{import} \PY{n}{gaussian\PYZus{}filter}
+          
+          \PY{c+c1}{\PYZsh{}inline plots}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{The Data}\label{the-data}
+
+    Lets try some satellite images from:
+https://apps.sentinel-hub.com/sentinel-playground
+
+We load several images to try. One is the natural image; what you see
+with your eyes. The others include several different spectra highlighing
+argicultural, urban and vegetation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}164}]:} \PY{n}{files} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sentinel\PYZhy{}2 image on 2018\PYZhy{}012\PYZhy{}natural.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sentinel\PYZhy{}2 image on 2018\PYZhy{}01\PYZhy{}12\PYZhy{}agric.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sentinel\PYZhy{}2 image on 2018\PYZhy{}01\PYZhy{}12\PYZhy{}urban.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sentinel\PYZhy{}2 image on 2018\PYZhy{}01\PYZhy{}12\PYZhy{}vegetation.jpg}\PY{l+s+s2}{\PYZdq{}}
+                  \PY{p}{]}
+          
+          \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Let's read the files into a dict
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{file\PYZus{}dir} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/ghana\PYZus{}data/}\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{n}{images} \PY{o}{=} \PY{p}{[}\PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{file\PYZus{}dir} \PY{o}{+} \PY{n}{file}\PY{p}{)} \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{files}\PY{p}{]}
+          \PY{n}{images} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{images}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Pre-processing the image}\label{pre-processing-the-image}
+
+We can try to pre-process the image by applying a gaussian smoothing
+function. This will mean we lose some fine detail but we are not
+interested in that anyway.
+
+This will give us some idea if pre-processing is best for the images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{smooth\PYZus{}imgs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names}\PY{p}{:}
+              \PY{n}{smooth\PYZus{}imgs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gaussian\PYZus{}filter}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{smooth\PYZus{}images} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{smooth\PYZus{}imgs}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Ok, let's look at the images
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names}\PY{p}{:}
+           
+              \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: Unprocessed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: Smoothed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see the main city in the centre of the images with a mountainous
+area in the top and right of the image. The white speckled bits are
+cloud. Overall it is a pretty clear image, there is a darker region to
+the left which is where one satellite image has been stitched together
+with another.
+
+We can see the difference in fine detail lost after the smoothing. But
+that might suit us as we are not interested in the fine detail
+
+    \subsection{Clustering}\label{clustering}
+
+Here we define a function that runs our k-means clustering algorithm.
+
+Clustering is an unsupervised machine learning approach. This means the
+data does not contain labels, so we do not tell the algorithm what class
+a particular observation (in this case a pixel in the image) should
+have. Instead, the algorithm looks at the distribution of the various
+features (in our case the amount of red, green and blue of each pixel)
+and tells us how the data is best grouped into classes.
+
+Clustering algorithms can be sensitive to the starting parameters, so we
+should try the approach with a few different parameters.
+
+K-Means is a pretty straightfoward approach to clustering.
+
+In K-Means, k is the number of clusters we want it to find, which we
+define beforehand. As K-Means is sensitive to starting parameters, we
+will try several different values for K.
+
+The broad steps for the algorithm are as follows
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Select the centroids for each of the K clusters - this can be done by
+  randomly selecting an observation in our dataset or by defining them
+  beforehand. Here we select them randomly.
+\item
+  For each observation, it calculates the euclidian distance in the
+  feature space to the centroid of each cluster each datapoint is
+  assigned to the cluster that has shortest euclidian distance. Simply
+  put: it assigns each datapoint to the closest cluster.
+\item
+  The centroids for each cluster are recalculated based upon the mean
+  (hence the name) of the features across all the observations' grouped
+  in that cluster.
+\item
+  Repeat from step 2 until a stopping condition is met. Examples of
+  these are: no observation changes cluster, the sum of the euclian
+  distances of each observation and the centroid of its cluster drops
+  below a threshold or a maximum number of iterations is reached.
+\end{enumerate}
+
+Below is the code to compute clusters. This uses the scikit-learn
+implementation of K-Means documented here:
+http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
+
+    \subsection{Create the functions we need to process the
+data}\label{create-the-functions-we-need-to-process-the-data}
+
+Here we create two functions. The first, cluster\_image contains the
+code to run the k-means algorithm on the data. The second runs the
+k\_means with multiple values for k and gets the results
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{k}{def} \PY{n+nf}{cluster\PYZus{}image}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{img}\PY{p}{,} \PY{n}{method} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{random}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}cluster\PYZus{}image}
+          \PY{l+s+sd}{    Takes an image, represented as a numpy array and attempts to cluster the pixels}
+          \PY{l+s+sd}{    in the image into a specified number of groups.}
+          \PY{l+s+sd}{    By default uses random starting clusters with a specified random seed}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Args:}
+          \PY{l+s+sd}{        groups (int): The number of groups to cluster the data into (k)}
+          \PY{l+s+sd}{        img (Array): The image of dimensions (x,y,z) where z is the features to cluster over}
+          \PY{l+s+sd}{        method (String): Initial starting method to use, random by default. }
+          \PY{l+s+sd}{            See: http://scikit\PYZhy{}learn.org/stable/modules/generated/sklearn.cluster.KMeans.html}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Returns:}
+          \PY{l+s+sd}{        cluster\PYZus{}labels (Array): Contains cluster labels for img in a 2\PYZhy{}D array of the same size as the first two}
+          \PY{l+s+sd}{            dimensions of img}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              
+              \PY{c+c1}{\PYZsh{}put into the right shape}
+              \PY{n}{dims} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+              \PY{n}{img\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{p}{(}\PY{n}{dims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{dims}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dims}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}cluster}
+              \PY{n}{cl} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{n}{groups}\PY{p}{,} \PY{n}{init} \PY{o}{=} \PY{n}{method}\PY{p}{)}
+              \PY{n}{img\PYZus{}groups} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{img\PYZus{}matrix}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}create image}
+              \PY{n}{cluster\PYZus{}groups} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{img\PYZus{}groups}\PY{p}{,} \PY{p}{(}\PY{n}{dims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{dims}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{cluster\PYZus{}groups}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{k}{def} \PY{n+nf}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{ks}\PY{p}{)}\PY{p}{:}
+              
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}cluster\PYZus{}ks}
+          \PY{l+s+sd}{    Wrapper for cluster image. Repeats clustering for a range of values.}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Args:}
+          \PY{l+s+sd}{        image (Array): The image of dimensions (x,y,z) where z is the features to cluster over}
+          \PY{l+s+sd}{        ks (iterable): integer values of k to cluster with}
+          \PY{l+s+sd}{        }
+          \PY{l+s+sd}{    Returns: }
+          \PY{l+s+sd}{        (dict): key:value pair where key is k clusters and value is the results in a numpy array }
+          \PY{l+s+sd}{        }
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              
+              \PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              
+              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{ks}\PY{p}{:}
+                  
+                  \PY{c+c1}{\PYZsh{}get cluster groups}
+                  \PY{n}{group\PYZus{}labels} \PY{o}{=} \PY{n}{cluster\PYZus{}image}\PY{p}{(}\PY{n}{groups} \PY{o}{=} \PY{n}{k}\PY{p}{,} \PY{n}{img} \PY{o}{=} \PY{n}{image}\PY{p}{)}
+                  \PY{n}{cluster\PYZus{}labels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{group\PYZus{}labels}\PY{p}{)}
+              
+              
+              \PY{n}{clusters} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{k}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{ks}\PY{p}{]}
+              \PY{k}{return} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{clusters}\PY{p}{,}\PY{n}{cluster\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{k}{def} \PY{n+nf}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks}\PY{p}{,} \PY{n}{imgs}\PY{p}{,} \PY{n}{smoothed\PYZus{}imgs}\PY{p}{,} \PY{n}{img\PYZus{}name}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}plt\PYZus{}results}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Plot results from smoothed and unsmoothed images side by side}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Args:}
+          \PY{l+s+sd}{        ks (iterable): the value for k used to cluster}
+          \PY{l+s+sd}{        img (dict): cluster results from unsmoothed image}
+          \PY{l+s+sd}{        smoothed\PYZus{}img (dict): cluster results from smoothed image}
+          \PY{l+s+sd}{        img\PYZus{}name (string): name of the image the results are for}
+          \PY{l+s+sd}{        }
+          \PY{l+s+sd}{    Returns:}
+          \PY{l+s+sd}{        figs (List): the figures created from the results}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+          
+              \PY{n}{figs} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                  \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{imgs}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{img\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ clusters}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{nat\PYZus{}smooth\PYZus{}results}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{img\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, smoothed: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ clusters}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+                  \PY{n}{figs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+                  
+              \PY{k}{return}
+\end{Verbatim}
+
+
+    \subsection{Natural image}\label{natural-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}261}]:} \PY{n}{nat\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{nat\PYZus{}smooth\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{n}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{imgs} \PY{o}{=} \PY{n}{nat\PYZus{}results}\PY{p}{,}
+                      \PY{n}{smoothed\PYZus{}imgs} \PY{o}{=} \PY{n}{nat\PYZus{}smooth\PYZus{}results}\PY{p}{,} 
+                      \PY{n}{img\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results}\label{results}
+
+\paragraph{Images}\label{images}
+
+The most stark difference is how much noiser our unsmoothed images look.
+If we wanted to perform some kind of edge detection or segmentation, we
+could do that on our smoothed images but not the unsmoothed.
+
+As for picking out the main city. It looks like using three clusters
+works ok, as do four and five. However, there are still things like
+clouds and mountains that it is being grouped with,so not perfect.
+
+Six clusters and upwards appear to be less useful and exhibit more noise
+in the results - not idea for gross segmentation of land use.
+
+We can get some metrics for the amount of land put into each group.
+
+    \section{Agricultural}\label{agricultural}
+
+Lets repeat the steps above with the agricultural image. This image has
+already been pre-processed to identify some land use which might make
+our job easier
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{agric\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{smooth\PYZus{}agric\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{n}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{imgs} \PY{o}{=} \PY{n}{agric\PYZus{}results}\PY{p}{,}
+                      \PY{n}{smoothed\PYZus{}imgs} \PY{o}{=} \PY{n}{smooth\PYZus{}agric\PYZus{}results}\PY{p}{,} 
+                      \PY{n}{img\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results}\label{results}
+
+\paragraph{Images}\label{images}
+
+This shows similar results to the natural image. Clustering on the
+smoothed image more promising.
+
+With three groups, it looks able to seperate out the more mountainous
+areas with. clouds and agricultural/urban areas. Not quite what we want.
+
+With 4 and 5, you can pick out the urban areas of the city and
+surrounding towns quite well. As you add more clusters it appears to
+gradually get more noise and appears less useful.
+
+    \subsection{Urban image}\label{urban-image}
+
+Like the Agricultural image, this has been pre-processed except, to pick
+out urban areas instead of agricutural.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{n}{urban\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{smooth\PYZus{}urb\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{n}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{imgs} \PY{o}{=} \PY{n}{urban\PYZus{}results}\PY{p}{,}
+                      \PY{n}{smoothed\PYZus{}imgs} \PY{o}{=} \PY{n}{smooth\PYZus{}urb\PYZus{}results}\PY{p}{,} 
+                      \PY{n}{img\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results}\label{results}
+
+\subsubsection{images}\label{images}
+
+As with the previous two images, four and five clusters show differences
+between the surrounding grassland and the city in the centre, but
+struggle to sepearate the city from the clouds while adding more
+clusters just adds more noise to the result.
+
+    \subsection{Vegetation image}\label{vegetation-image}
+
+This image uses parts of the infared spectrum to show areas of
+vegetation so may be able to seperate out the urban areas from the city.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{n}{veg\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{smooth\PYZus{}veg\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}277}]:} \PY{n}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{imgs} \PY{o}{=} \PY{n}{veg\PYZus{}results}\PY{p}{,}
+                      \PY{n}{smoothed\PYZus{}imgs} \PY{o}{=} \PY{n}{smooth\PYZus{}veg\PYZus{}results}\PY{p}{,} 
+                      \PY{n}{img\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results}\label{results}
+
+\paragraph{images}\label{images}
+
+Otherwise it is simlar to before with more clusters after 6, just adding
+noise.
+
+    \subsection{Combining the images}\label{combining-the-images}
+
+In machine learning, more data is generally better \emph{if} the data is
+relevant to the problem you are trying to solve. Since all the images
+appear to go some way to helping us, it makes sense to combine the data
+and repeat the k-means.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{all\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                    \PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                                   \PY{p}{]}\PY{p}{,}
+                                   \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{2}
+                                  \PY{p}{)}
+          
+          \PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Combined}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}img}
+          
+          \PY{n}{all\PYZus{}smooth\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Natural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                           \PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                           \PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                           \PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agricultural}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                                          \PY{p}{]}\PY{p}{,}
+                                          \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{2}
+                                         \PY{p}{)}
+          
+          \PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Combined}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}smooth\PYZus{}img}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{n}{combo\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Combined}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{smooth\PYZus{}combo\PYZus{}results} \PY{o}{=} \PY{n}{cluster\PYZus{}ks}\PY{p}{(}\PY{n}{smooth\PYZus{}images}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Combined}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{plt\PYZus{}results}\PY{p}{(}\PY{n}{ks} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{imgs} \PY{o}{=} \PY{n}{combo\PYZus{}results}\PY{p}{,}
+                      \PY{n}{smoothed\PYZus{}imgs} \PY{o}{=} \PY{n}{smooth\PYZus{}combo\PYZus{}results}\PY{p}{,} 
+                      \PY{n}{img\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Combined}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results}\label{results}
+
+\paragraph{images}\label{images}
+
+It is a similar story for our combined image dataset. Four and five.
+
+    \subsection{Overall}\label{overall}
+
+\begin{itemize}
+\tightlist
+\item
+  Smoothed images appear better for gross segmentation
+\item
+  Clouds get grouped in with terrian, ideally any images will need to be
+  free of clouds.
+\item
+  Unsupervised methods may be of some use. If images can come with gis
+  data, it may be possible to use this information as labels in a
+  superivsed machine learning approach which could be more useable.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,12 +1,10 @@
 [[source]]
-
 verify_ssl = true
 url = "https://pypi.python.org/simple"
 name = "pypi"
 
 
 [packages]
-
 pandas = "*"
 jupyter = "*"
 pypng = "*"
@@ -28,5 +26,4 @@ seaborn = "*"
 
 
 [requires]
-
 python_version = "3.5"

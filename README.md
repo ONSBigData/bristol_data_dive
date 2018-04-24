@@ -40,7 +40,7 @@ plt.rcParams["figure.figsize"] = (20,20)
 
 Lets try some satellite images from: https://apps.sentinel-hub.com/sentinel-playground
 
-We load several images to try. One is the natural image; what you see with your eyes.
+We load several images of the city of Kumasi in Ghana to try. One is the natural image; what you see with your eyes.
 The others include several different spectra highlighing argicultural, urban and vegetation.
 
 
